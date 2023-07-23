@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "diary-e6012",
+  "private_key_id": "a1a28213c8fee72773f9f9e574baecdcfb3ea880",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDqyVb3E/A2i348\nnAAq5abMrJui5K9+Uk7ZoExddvdK03wNJFSCgrDymyeg/gXQ9D7R7df4jw8EthcI\nmQCgFk06ugGiIX73Z2qtZfylrG3swng33/qE49iw8xabTbWWZ32SquXuy5SD7ltM\n5sg+yqk7gmM+G5xjkGorHMPTMTIoiSIkprdXn6fSomaLtd5JmlZVVfp6uAq6kaWi\nmyZc1IPgHgUwawd9zsnUN8dLdEp0alKUAbDYP1RaQNayyHOioMkJmlto8LbvidUa\nldoVf6vREaB5rzp64wm5OqUGekbB2UbI9l895Oi3GfiI5X76S46OSwZA7Qj1eC2s\n0YSAVAgvAgMBAAECggEAOJ4s9pA8USr6WitUbwPKYXkOXw2+tDutABYD1FYn9Edj\nlte3+XECsr5vpAcd5/G+ZGlyt2HoQT6X917OI8y8+vh4BF0HfSnXM9FwR5N5Pqr2\nyqKciwdW7fTw8qqeq5JxWbkUka1ONzJ3mefdSicdAFjFDekioW/l6leZcYhfjB5v\neNA/L93I4yPzIuBFQ8ZnODGAsERO3mSLfIvujMdtAd+ABzeTR3lJpXZd/XKv44Rq\nPJ6NaQFF9s/XwH/XFpHhrqp1SAG2eUyYI4ANBHu6FQPGVpP+H2/GtV389Z5boR+x\nutMSs2Dy6LfUVbNTtg9IqT5Oji9eS8fWrGdd+fUroQKBgQD4UhzyPw64WcvCY4Ge\nb/ejAnmYI4dU/GxxtKEMNGrzqkJpQMCA+PBQaWodU1gDSLfqD+UPL/xyc3H8O5xm\naXu+aTbLr2MDU2SRnEfmHkGcSgicvbZNFVDh9V+S8TPx5H6r+v479BsUAh1nwsHB\nKCyqyo7Sd1gr1stG0cbdE8lxmwKBgQDyDBRdGabjZ8i9Do4uSlE0zeR4FSY6M8Fj\n2/lGRVfYf8d+BbPQuSX9CJNsWnTUUgzEYHZnF0Y0H5pUNRbOVZLMST00U2PelY07\n+cxbbsZYV/cDLYSceoiH9xim2xnc4AV7/JuWc6acX82jR7uHwqa3026VKhfN16B8\nhnPnviFm/QKBgQCnIyWmi3jN7mquESm6SWSljFHpa+h39FrNgaVwQIvIK839Z/7q\nECQ4C2vIB0PTGgvn+ADV4xeItVmAS2Mur0sB03F1UTxUjbnAJC9knPLOTipTzYE5\niuJg5DYLAlxTMNdtzEd4dQoQwoemQjkFWJQP9LyCvp9TCoTRyvqN7PaGhwKBgBAz\n1M0ioXRJhzt4lPXuTZ9ORQPwzn1I56IqoHYewDGi5BTAhvfq3OsiPtQa/gUUdPxU\nRLjD6xQkJW2LnDo1qjz4jhtJlb7Znfms0Awyzx4szUEuM9lRroADf2fz9Lg/Wr6g\n+z1IApgnJZnPfHMrCYP2qEld5vgFfh231lxl8tB1AoGAAoRQRrBar+OYnFtokdFJ\n8/vRSOmrllD0swBCuEQEUnIKmg6GOXfynWyg1l7wjtgsEY7v2FgmAZoRlGslAoRz\nYDXIom/C8Z13G0UKPTBvFKHP/KMWzz06I+abcVIZUZI7vahO7w1iY98aZtyz8Awa\nPiIvSSglZMDde4j6oR8ursA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fitt-bot@diary-e6012.iam.gserviceaccount.com",
+  "client_id": "102254881362290963722",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fitt-bot%40diary-e6012.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
