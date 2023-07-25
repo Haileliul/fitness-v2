@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'signUp_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
+import 'signUp_screen.dart';
+
 import '../translations/local_keys.g.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,13 +14,42 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+  String Api = "signIn";
+
+  Future<void> signInUser(String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse(mainUrl + Api),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        Navigator.pushNamed(context, '/Main');
+        // print("the respons works bro");
+      } else {
+        // Handle errors or other status codes.
+
+        print(response.statusCode);
+      }
+    } catch (error) {
+      print(error);
+      // Handle any exceptions that occurred during the request.
+    }
+  }
+
   String dropdownValue = 'am';
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
   final FocusNode _passwordFocusNode = FocusNode();
 
   bool _isObscured = true;
@@ -26,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _nameFocusNode.dispose();
     _emailFocusNode.dispose();
-    _nameController.dispose();
+    _passwordController.dispose();
     _emailController.dispose();
     super.dispose();
   }
@@ -187,7 +219,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              signInUser(_emailController.text,
+                                  _passwordController.text);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
                               elevation: 0,

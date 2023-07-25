@@ -23,9 +23,11 @@ class _MainLandingPageState extends State<MainLandingPage> {
   }
 
   var productState;
+  var productUpdate;
   @override
   Widget build(BuildContext context) {
     productState = Provider.of<ExerciseCategories>(context);
+    productUpdate = Provider.of<ExerciseCategories>(context, listen: false);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(
@@ -35,7 +37,9 @@ class _MainLandingPageState extends State<MainLandingPage> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              productUpdate.fetchData();
+            },
             icon: const Icon(Icons.menu),
           ),
           title: const Text("Exercises"),
@@ -56,8 +60,8 @@ class _MainLandingPageState extends State<MainLandingPage> {
                 children: [
                   Expanded(
                     child: Container(
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 25),
                       child: TextField(
                         focusNode: _focusNode,
                         style: const TextStyle(

@@ -19,7 +19,7 @@ class GridViewBuilder extends StatelessWidget {
         axisDirection: AxisDirection.down,
         color: const Color(0xFFE81818),
         child: GridView.builder(
-          itemCount: productState.containerData.length,
+          itemCount: productState.Mainlist.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           itemBuilder: (context, index) {
@@ -46,15 +46,17 @@ class GridViewBuilder extends StatelessWidget {
                       Opacity(
                         opacity: 0.45,
                         child: Image.asset(
-                          productState.containerData[index]
-                              ["exerciseCategoryImage"],
+                          productState.Mainlist[index]["exerciseCategoryImage"],
+                          /*   productState.containerData[index]
+                              ["exerciseCategoryImage"], */
                           fit: BoxFit.cover,
                         ),
                       ),
                       Center(
                         child: Text(
-                          productState.containerData[index]
-                              ["exerciseCategoryName"],
+                          productState.Language[index]["exerciseCategoryName"],
+                          /*  productState.containerData[index]
+                              ["exerciseCategoryName"], */
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,

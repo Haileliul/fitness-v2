@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import '../Provider/exercises_categories.dart';
 import 'login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+
+    Timer(const Duration(seconds: 5), () {
+      productUpdate.fetchData();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -22,8 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  var productState;
+  var productUpdate;
   @override
   Widget build(BuildContext context) {
+    productState = Provider.of<ExerciseCategories>(context);
+    productUpdate = Provider.of<ExerciseCategories>(context, listen: false);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

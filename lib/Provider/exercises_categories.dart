@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
 import '../translations/local_keys.g.dart';
 
 List<Map> generaded = [];
@@ -7,6 +10,62 @@ List<Map> generaded = [];
 class ExerciseCategories extends ChangeNotifier {
   ExerciseCategories();
   // an iterater to access each value of List
+  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+
+// my api feaching
+  List Mainlist = [];
+
+  void fetchData() async {
+    const url = "https://fitness-backend-production.up.railway.app/showfitts";
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final data = jsonDecode(response.body);
+    Mainlist = data;
+    print(Mainlist[0][""]);
+  }
+
+  List Language = [
+    {
+      "id": 0,
+      'exerciseCategoryName': LocaleKeys.ABs.tr(),
+    },
+    {
+      "id": 1,
+      'exerciseCategoryName': LocaleKeys.Back.tr(),
+    },
+    {
+      "id": 2,
+      'exerciseCategoryName': LocaleKeys.Biceps.tr(),
+    },
+    {
+      "id": 3,
+      'exerciseCategoryName': LocaleKeys.Calf.tr(),
+    },
+    {
+      "id": 4,
+      'exerciseCategoryName': LocaleKeys.Chest.tr(),
+    },
+    {
+      "id": 5,
+      'exerciseCategoryName': LocaleKeys.Forearm.tr(),
+    },
+    {
+      "id": 6,
+      'exerciseCategoryName': LocaleKeys.Legs.tr(),
+    },
+    {
+      "id": 7,
+      'exerciseCategoryName': LocaleKeys.Shoulders.tr(),
+    },
+    {
+      "id": 8,
+      'exerciseCategoryName': LocaleKeys.Triceps.tr(),
+    },
+    {
+      "id": 9,
+      'exerciseCategoryName': LocaleKeys.All.tr(),
+    }
+  ];
 
   List containerData = [
     {

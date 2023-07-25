@@ -1,6 +1,9 @@
-import './login_screen.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
+
+import './login_screen.dart';
 import '../translations/local_keys.g.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -11,6 +14,41 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+  String Api = "signup";
+
+  Future<void> signUpUser(String name, String email, String password, int age,
+      String gender) async {
+    try {
+      final response = await http.post(
+        Uri.parse(mainUrl + Api),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'fullName': name,
+          'email': email,
+          'password': password,
+          'age': age,
+          'gender': gender,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print("you have been Registered succssfully");
+
+        // print("the respons works bro");
+      } else {
+        // Handle errors or other status codes.
+
+        print(response.statusCode);
+      }
+    } catch (error) {
+      print(error);
+      // Handle any exceptions that occurred during the request.
+    }
+  }
+
   String dropdownSexValue = LocaleKeys.Male.tr();
   String dropdownAgeValue = '0';
   final FocusNode _nameFocusNode = FocusNode();
@@ -327,7 +365,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/Main');
+                              print(_passwordController.text);
+                              signUpUser(
+                                  _nameController.text,
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  20,
+                                  "male");
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
