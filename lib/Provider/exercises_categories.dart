@@ -21,7 +21,6 @@ class ExerciseCategories extends ChangeNotifier {
     final response = await http.get(uri);
     final data = jsonDecode(response.body);
     Mainlist = data;
-    print(Mainlist[0][""]);
   }
 
   List Language = [

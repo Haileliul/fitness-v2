@@ -20,7 +20,7 @@ class BottomnavigationBar extends StatelessWidget {
           icon: FontAwesomeIcons.house,
           text: 'Home',
           onPressed: () {
-            Navigator.pushNamed(context, '/Main');
+            Navigator.pushReplacementNamed(context, '/Main');
           },
         ),
         GButton(

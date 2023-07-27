@@ -31,7 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        Navigator.pushNamed(context, '/Main');
+        Navigator.pushReplacementNamed(context, '/Main');
+
         // print("the respons works bro");
       } else {
         // Handle errors or other status codes.
