@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../Provider/exercises_categories.dart';
 import '../Widgets/grid_view_builder.dart';
 import '../Widgets/BottomNavigationBar.dart';
+import '../Widgets/notification.dart';
 
 class MainLandingPage extends StatefulWidget {
   const MainLandingPage({Key? key}) : super(key: key);
@@ -15,6 +17,12 @@ class MainLandingPage extends StatefulWidget {
 
 class _MainLandingPageState extends State<MainLandingPage> {
   final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  } // final Notificationa notification = Notificationa();
 
   @override
   void dispose() {
@@ -38,7 +46,13 @@ class _MainLandingPageState extends State<MainLandingPage> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
+              notificationWidget.showscheduledNotification(
+                  title: 'not title',
+                  body: 'not body',
+                  ScheduleTime: DateTime.now().add(Duration(seconds: 1)));
               productUpdate.fetchData();
+
+              print("haha");
             },
             icon: const Icon(Icons.menu),
           ),
