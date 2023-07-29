@@ -1,4 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness/Pages/chapa.dart';
+import 'package:fitness/Pages/tele_birr.dart';
+import 'package:fitness/Provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness/Pages/bmi_input_page.dart';
 
@@ -50,6 +53,7 @@ class Home extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ExerciseCategories()),
         ChangeNotifierProvider(create: (context) => WorkOutProvider()),
+        ChangeNotifierProvider(create: (context) => PayDataProvider()),
       ],
       child: MaterialApp(
         // adding nessesary deligates for app localizasion
@@ -78,7 +82,11 @@ class Home extends StatelessWidget {
           '/Schedule': (context) => SchedulList(),
           '/Workout': (context) => WorkoutList(),
           '/Bmi': (context) => const InputPage(),
+
           '/Payment': (context) => const PaymentGatewayScreen(),
+          '/telebirr': (context) => TeleBirr(),
+          '/chapa': (context) => Chapa(),
+          
         },
 
         home:
