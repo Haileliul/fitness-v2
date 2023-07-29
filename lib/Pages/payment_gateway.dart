@@ -21,7 +21,7 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/Rectangle 50.png'),
+              image: AssetImage('assets/images/payment_getway/Rectangle 50.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -48,7 +48,7 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                           // color: Colors.amber,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('assets/rectangle49.png'),
+                              image: AssetImage('assets/images/payment_getway/rectangle49.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
