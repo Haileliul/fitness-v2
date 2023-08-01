@@ -78,7 +78,7 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                               horizontal: 12.0,
                             ),
                             child: SingleChildScrollView(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

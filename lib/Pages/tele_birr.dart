@@ -1,10 +1,11 @@
+import 'package:fitness/Widgets/telebirr_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fitness/Provider/provider.dart';
 import 'package:provider/provider.dart';
 
 class TeleBirr extends StatelessWidget {
-   TeleBirr({super.key});
+  TeleBirr({super.key});
   var pro;
 
   @override
@@ -88,8 +89,8 @@ class TeleBirr extends StatelessWidget {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                    title:  Text(
-                                     '${pro.time.day}/${pro.time.month}/${pro.time.year} G.C' ,
+                                    title: Text(
+                                      '${pro.time.day}/${pro.time.month}/${pro.time.year} G.C',
                                       style: const TextStyle(
                                         color: Colors.white38,
                                       ),
@@ -241,22 +242,28 @@ class TeleBirr extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 2),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: const Color.fromARGB(
-                                              255, 21, 21, 214),
-                                        ),
-                                        child: const Center(
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 8, horizontal: 3),
-                                            child: Text(
-                                              'Login telebirr account to pay',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 7,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/account');
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: const Color.fromARGB(
+                                                255, 21, 21, 214),
+                                          ),
+                                          child: const Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 8, horizontal: 3),
+                                              child: Text(
+                                                'Login telebirr account to pay',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 7,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -282,7 +289,7 @@ class TeleBirr extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    futterContainer(
+                    TelebirrFooter(
                       size: size,
                       onTap: () async {
                         String phoneNumber = '+251127';
@@ -299,7 +306,7 @@ class TeleBirr extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    futterContainer(
+                    TelebirrFooter(
                       size: size,
                       onTap: () async {
                         const url = 'https://www.ethiotelecom.et';
@@ -323,67 +330,3 @@ class TeleBirr extends StatelessWidget {
   }
 }
 
-class futterContainer extends StatelessWidget {
-  futterContainer(
-      {super.key,
-      required this.size,
-      this.onTap,
-      this.image,
-      this.text1,
-      this.color,
-      this.text2});
-
-  final Size size;
-  final Function()? onTap;
-  final String? text1;
-  final String? image;
-  final Color? color;
-  final String? text2;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 1,
-          ),
-        ],
-      ),
-      height: size.height * 0.2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            image!,
-            height: 50,
-            width: 50,
-            color: color!,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              text1!,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: onTap!,
-           
-            child: Text(
-              text2!,
-              style: const TextStyle(
-                color: Colors.blue,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
