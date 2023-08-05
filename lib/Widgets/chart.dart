@@ -78,14 +78,10 @@ class LineChartWidget extends StatelessWidget {
           lineBarsData: [
             LineChartBarData(
               spots: [
-                const FlSpot(0, 0),
-                const FlSpot(5, 18),
+                const FlSpot(0, 5),
                 const FlSpot(10, 19),
-                const FlSpot(13, 23),
-                const FlSpot(14, 14),
-                const FlSpot(16, 29),
-                const FlSpot(18, 38),
-                const FlSpot(29, 27),
+                const FlSpot(20, 14),
+                const FlSpot(30, 27),
               ],
               isCurved: true,
               // gradient: LinearGradient(colors: gradientColors),

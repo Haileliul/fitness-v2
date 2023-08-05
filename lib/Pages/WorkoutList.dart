@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -11,28 +12,35 @@ class WorkoutList extends StatefulWidget {
   WorkoutList({
     super.key,
   });
-  static String myVideoId = 'T_X5rb3G5lk';
 
   @override
   State<WorkoutList> createState() => _WorkoutListState();
 }
 
 class _WorkoutListState extends State<WorkoutList> {
-  final YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: WorkoutList.myVideoId,
-    flags: const YoutubePlayerFlags(
-      // autoPlay: true,
+  loader(String myVideoId) {
+    final YoutubePlayerController controller = YoutubePlayerController(
+      initialVideoId: myVideoId,
+      flags: const YoutubePlayerFlags(
+        // autoPlay: true,
 
-      mute: false,
-      autoPlay: false,
-      disableDragSeek: false,
-      loop: true,
-      isLive: false,
-      forceHD: false,
-      /*  enableCaption: true, */
-      hideThumbnail: true,
-    ),
-  );
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: true,
+        isLive: false,
+        forceHD: false,
+        enableCaption: false,
+        hideThumbnail: false,
+      ),
+    );
+    print(controller.value.isPlaying);
+    print("hahahhahahahahahhahahahahahahahah");
+
+    return controller;
+  }
+
+  @override
 
 //  drower lists
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -115,6 +123,7 @@ class _WorkoutListState extends State<WorkoutList> {
           onPressed: () {
             Navigator.of(context).pop();
 
+            WorkoutUpdater.ResetingDSum();
             WorkoutUpdater.todoIndexReset();
             WorkoutUpdater.cleaner();
           },
@@ -123,7 +132,7 @@ class _WorkoutListState extends State<WorkoutList> {
         actions: [
           IconButton(
             onPressed: () {
-              // scaffoldKey.currentState!.openEndDrawer();
+              scaffoldKey.currentState!.openEndDrawer();
               /*  SideSheet.right(
                 body: Container(
                   margin: EdgeInsets.only(top: 60, left: 10, bottom: 20),
@@ -199,7 +208,7 @@ class _WorkoutListState extends State<WorkoutList> {
                           ),
                         ),
                         Text(
-                          "${WorkoutState.Scheduller[WorkoutState.weekIndicatorIndex]["Excersise"][WorkoutState.selectedWorkOutIndex]["todo"].length}",
+                          "${WorkoutState.Scheduller[WorkoutState.weekIndicatorIndex]["Excersise"][WorkoutState.selectedWorkOutIndex]["todo"].length - 1}",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -225,7 +234,9 @@ class _WorkoutListState extends State<WorkoutList> {
               width: size.width,
               height: size.height * 0.3,
               child: YoutubePlayer(
-                controller: _controller,
+                controller: loader(
+                  todo[todoIndex]["V_url"],
+                ),
               ),
             ),
             Padding(
@@ -237,6 +248,7 @@ class _WorkoutListState extends State<WorkoutList> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                      color: Colors.amber,
                     ),
                   ),
                   Padding(
@@ -367,8 +379,10 @@ class indicaor extends StatefulWidget {
 
 class _indicaorState extends State<indicaor>
     with SingleTickerProviderStateMixin {
+  TextEditingController poptextcontroller = TextEditingController();
   late AnimationController _controller;
   late Animation animation;
+  int reps = 0;
 
   _showPopup() {
     showDialog(
@@ -376,16 +390,72 @@ class _indicaorState extends State<indicaor>
       builder: (context) {
         return AlertDialog(
           title: Text("hi"),
+          content: SizedBox(
+            height: 70,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text("No of Reps You done"),
+                      ),
+                      SizedBox(
+                        height: 25,
+                        width: 45,
+                        child: TextFormField(
+                          controller: poptextcontroller,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(2)
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text("this is the  content"),
+              ],
+            ),
+          ),
           actions: [
-            Text("this "),
-            Text("and this "),
             TextButton(
               onPressed: () {
                 print("hellow dialoge");
                 Navigator.pop(context);
-                todoAdder();
+
                 _controller.reset();
                 _controller.forward();
+              },
+              child: Text("Repeat Again"),
+            ),
+            TextButton(
+              onPressed: () {
+                if (poptextcontroller.text.isNotEmpty) {
+                  Navigator.pop(context);
+                  todoAdder();
+                  _controller.reset();
+                  _controller.forward();
+                  if (poptextcontroller.text.isNotEmpty) {
+                    setState(() {
+                      reps = int.parse(poptextcontroller.text);
+                    });
+                  }
+                  WorkoutUpdater.RepsUpdater(reps);
+                  WorkoutUpdater.DailyRepsAdder;
+                  print("the value of Reps is = ${WorkoutState.NoReps}");
+                  poptextcontroller.clear();
+                } else
+                  Null;
               },
               child: Text("Next"),
             ),
@@ -405,14 +475,24 @@ class _indicaorState extends State<indicaor>
     );
     _controller.forward();
     _controller.addListener(() {
-      print(_controller.value);
       setState(() {});
     });
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _showPopup();
+        if (WorkoutState.todoIndex < 8) {
+          _showPopup();
+        } else {
+          print("PopUp of end comes");
+        }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
   }
 
   late var WorkoutState;

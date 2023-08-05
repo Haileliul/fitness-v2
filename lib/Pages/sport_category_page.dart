@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -7,7 +8,6 @@ import '../constants/constants.dart';
 import '../Provider/exercises_categories.dart';
 
 int activeIndex = 0;
-
 
 class SportsCategory extends StatefulWidget {
   const SportsCategory({Key? key}) : super(key: key);
@@ -19,6 +19,11 @@ class SportsCategory extends StatefulWidget {
 class _SportsCategoryState extends State<SportsCategory> {
   var productState;
   var productStateModifier;
+
+  Future Refresh() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     productState = Provider.of<ExerciseCategories>(context);
@@ -70,50 +75,63 @@ class _SportsCategoryState extends State<SportsCategory> {
                 horizontal: 20,
                 vertical: 10,
               ),
-              child: GridView.builder(
-                itemCount: productState
-                    .containerData[productState.selectedCategoryIndex]
-                        ["SubExercises"]
-                    .length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+              child: CustomRefreshIndicator(
+                /// delegate with configuration
+                builder: MaterialIndicatorDelegate(
+                  builder: (context, controller) {
+                    return Icon(
+                      Icons.ac_unit,
+                      color: Colors.blue,
+                      size: 30,
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(25.0),
-                          bottomRight: Radius.circular(25.0),
+                onRefresh: Refresh,
+                child: GridView.builder(
+                  itemCount: productState
+                      .containerData[productState.selectedCategoryIndex]
+                          ["SubExercises"]
+                      .length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80),
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/Detail',
-                              arguments: {
-                                "Index": index,
-                              },
-                            );
-                            productStateModifier.changeIndexSub(index);
-                          },
-                          child: Image.network(
-                            productState.containerData[
-                                    productState.selectedCategoryIndex]
-                                ["SubExercises"][index]["Img"],
-                            fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25.0),
+                            bottomRight: Radius.circular(25.0),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/Detail',
+                                arguments: {
+                                  "Index": index,
+                                },
+                              );
+                              productStateModifier.changeIndexSub(index);
+                            },
+                            child: Image.network(
+                              productState.containerData[
+                                      productState.selectedCategoryIndex]
+                                  ["SubExercises"][index]["Img"],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),

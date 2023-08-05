@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness/Pages/bmi_input_page.dart';
+import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
@@ -26,9 +27,9 @@ import 'Provider/exercises_categories.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await EasyLocalization.ensureInitialized();
-  await notificationWidget.init();
+  // await notificationWidget.init();
   tz.initializeTimeZones();
 
   runApp(

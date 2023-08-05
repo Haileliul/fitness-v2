@@ -15,13 +15,13 @@ class youtubplayer extends StatelessWidget {
         // autoPlay: true,
 
         mute: false,
-        autoPlay: false,
+        autoPlay: true,
         disableDragSeek: false,
         loop: true,
         isLive: false,
         forceHD: false,
-        /*  enableCaption: true, */
-        hideThumbnail: true,
+        enableCaption: false,
+        hideThumbnail: false,
       ),
     );
 

@@ -1,3 +1,4 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,10 @@ class _MainLandingPageState extends State<MainLandingPage> {
   void dispose() {
     _focusNode.dispose(); // Dispose the focus node to avoid memory leaks
     super.dispose();
+  }
+
+  Future Refresh() async {
+    setState(() {});
   }
 
   var productState;
@@ -66,48 +71,63 @@ class _MainLandingPageState extends State<MainLandingPage> {
             ),
           ],
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      child: TextField(
-                        focusNode: _focusNode,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                              left: 15.0, bottom: 8.0, top: 8.0),
-                          suffixIcon: Icon(
-                            FontAwesomeIcons.magnifyingGlass,
-                            color: Colors.grey.shade600,
+
+        /// delegate with configuration
+
+        body: CustomRefreshIndicator(
+          builder: MaterialIndicatorDelegate(
+            builder: (context, controller) {
+              return Icon(
+                Icons.ac_unit,
+                color: Colors.blue,
+                size: 30,
+              );
+            },
+          ),
+          onRefresh: Refresh,
+          child: SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 25),
+                        child: TextField(
+                          focusNode: _focusNode,
+                          style: const TextStyle(
+                            color: Colors.black,
                           ),
-                          constraints: const BoxConstraints(
-                            maxHeight: 45.0,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                left: 15.0, bottom: 8.0, top: 8.0),
+                            suffixIcon: Icon(
+                              FontAwesomeIcons.magnifyingGlass,
+                              color: Colors.grey.shade600,
+                            ),
+                            constraints: const BoxConstraints(
+                              maxHeight: 45.0,
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xFFD9D9D9),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            hintText: 'Search... Sweat... Repeat!',
+                            hintStyle: TextStyle(color: Colors.grey.shade400),
                           ),
-                          filled: true,
-                          fillColor: const Color(0xFFD9D9D9),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          hintText: 'Search... Sweat... Repeat!',
-                          hintStyle: TextStyle(color: Colors.grey.shade400),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: GridViewBuilder(),
-              ),
-            ],
+                  ],
+                ),
+                Expanded(
+                  child: GridViewBuilder(),
+                ),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: const BottomnavigationBar(),

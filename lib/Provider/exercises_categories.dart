@@ -15,13 +15,195 @@ class ExerciseCategories extends ChangeNotifier {
 // my api feaching
   List Mainlist = [];
 
-  void fetchData() async {
+  fetchData() async {
     const url = "https://fitness-backend-production.up.railway.app/showfitts";
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     final data = jsonDecode(response.body);
     Mainlist = data;
+    notifyListeners();
   }
+
+// this is the provider for popup page in workoutList page
+
+  int NoReps = 0;
+
+  void RepsUpdater(int Repsval) {
+    NoReps = Repsval;
+    DailyRepsAdder();
+    notifyListeners();
+  }
+
+  // ======================================================
+
+// this is the logic for clculating the tracker for the graph to be ploted
+
+  double DSum = 0;
+  double WSum = 0;
+  double Aver = 0;
+  double MSum = 0;
+
+  void DailyRepsAdder() {
+    DSum += NoReps;
+    print("The Dailly Adder is excuted");
+    print("Sum of the daily re p is ${DSum}");
+    notifyListeners();
+  }
+
+  void weeklyRepsAdder() {
+    WSum += DSum;
+    print("The Weekly Adder is excuted");
+    print("the value of WSum is ${WSum}");
+    notifyListeners();
+  }
+
+  void ResetingDSum() {
+    DSum = 0;
+    print("Reseting the DSum has been called ");
+    notifyListeners();
+  }
+
+  void ResetingWSum() {
+    WSum = 0;
+    notifyListeners();
+    print("Reseting the Wsum has been called");
+    print("and the value of WSum is ${WSum}");
+  }
+
+  void WsumSetter() {
+    Scheduller[weekIndicatorIndex]["RepsInput"] = WSum / 6;
+    ResetingWSum();
+    notifyListeners();
+  }
+
+// ===============================================================================
+  List<Map> Scheduller = [
+    {
+      "title": "Weak one",
+      "rep": 10,
+      "RepsInput": 0,
+      // weekIndicatorIndex
+      "Excersise": [
+        {
+          "day": "Moonday",
+          "todo": generaded,
+        },
+        {
+          "day": "Tusday",
+          "todo": generaded,
+        },
+        {
+          "day": "Wednsday",
+          "todo": generaded,
+        },
+        {
+          "day": "Thursday",
+          "todo": generaded,
+        },
+        {
+          "day": "Friday",
+          "todo": generaded,
+        },
+        {
+          "day": "SaterDay",
+          "todo": generaded,
+        }
+      ]
+    },
+    {
+      "title": "Weak Two",
+      "rep": 15,
+      "RepsInput": 0,
+      "Excersise": [
+        {
+          "day": "Moonday",
+          "todo": generaded,
+        },
+        {
+          "day": "Tusday",
+          "todo": generaded,
+        },
+        {
+          "day": "Wednsday",
+          "todo": generaded,
+        },
+        {
+          "day": "Thursday",
+          "todo": generaded,
+        },
+        {
+          "day": "Friday",
+          "todo": generaded,
+        },
+        {
+          "day": "SaterDay",
+          "todo": generaded,
+        }
+      ]
+    },
+    {
+      "title": "Weak Three",
+      "rep": 20,
+      "RepsInput": 0,
+      "Excersise": [
+        {
+          "day": "Moonday",
+          "todo": generaded,
+        },
+        {
+          "day": "Tusday",
+          "todo": generaded,
+        },
+        {
+          "day": "Wednsday",
+          "todo": generaded,
+        },
+        {
+          "day": "Thursday",
+          "todo": generaded,
+        },
+        {
+          "day": "Friday",
+          "todo": generaded,
+        },
+        {
+          "day": "SaterDay",
+          "todo": generaded,
+        }
+      ]
+    },
+    {
+      "title": "Weak Fourth",
+      "rep": 25,
+      "RepsInput": 0,
+      "Excersise": [
+        {
+          "day": "Moonday",
+          "todo": generaded,
+        },
+        {
+          "day": "Tusday",
+          "todo": generaded,
+        },
+        {
+          "day": "Wednsday",
+          "todo": generaded,
+        },
+        {
+          "day": "Thursday",
+          "todo": generaded,
+        },
+        {
+          "day": "Friday",
+          "todo": generaded,
+        },
+        {
+          "day": "SaterDay",
+          "todo": generaded,
+        }
+      ]
+    },
+  ];
 
   List Language = [
     {
@@ -381,11 +563,13 @@ class ExerciseCategories extends ChangeNotifier {
     notifyListeners();
   }
 
-  ListGenarater(int index) {
+  ListGenarater(int index) async {
     List<Map> temp;
     // an iterater to access each value of List
-    containerData.forEach((Items) {
-      generaded.add(Items["SubExercises"][index]);
+    Mainlist.forEach((Items) {
+      generaded.add(
+        Items["SubExercises"][index],
+      );
     });
   }
 
@@ -393,128 +577,6 @@ class ExerciseCategories extends ChangeNotifier {
     generaded.clear();
   }
 
-  List<Map> Scheduller = [
-    {
-      "title": "Weak one",
-      "rep": 10,
-      "Excersise": [
-        {
-          "day": "Moonday",
-          "todo": generaded,
-        },
-        {
-          "day": "Tusday",
-          "todo": generaded,
-        },
-        {
-          "day": "Wednsday",
-          "todo": generaded,
-        },
-        {
-          "day": "Thursday",
-          "todo": generaded,
-        },
-        {
-          "day": "Friday",
-          "todo": generaded,
-        },
-        {
-          "day": "SaterDay",
-          "todo": generaded,
-        }
-      ]
-    },
-    {
-      "title": "Weak Two",
-      "rep": 15,
-      "Excersise": [
-        {
-          "day": "Moonday",
-          "todo": generaded,
-        },
-        {
-          "day": "Tusday",
-          "todo": generaded,
-        },
-        {
-          "day": "Wednsday",
-          "todo": generaded,
-        },
-        {
-          "day": "Thursday",
-          "todo": generaded,
-        },
-        {
-          "day": "Friday",
-          "todo": generaded,
-        },
-        {
-          "day": "SaterDay",
-          "todo": generaded,
-        }
-      ]
-    },
-    {
-      "title": "Weak Three",
-      "rep": 20,
-      "Excersise": [
-        {
-          "day": "Moonday",
-          "todo": generaded,
-        },
-        {
-          "day": "Tusday",
-          "todo": generaded,
-        },
-        {
-          "day": "Wednsday",
-          "todo": generaded,
-        },
-        {
-          "day": "Thursday",
-          "todo": generaded,
-        },
-        {
-          "day": "Friday",
-          "todo": generaded,
-        },
-        {
-          "day": "SaterDay",
-          "todo": generaded,
-        }
-      ]
-    },
-    {
-      "title": "Weak Fourth",
-      "rep": 25,
-      "Excersise": [
-        {
-          "day": "Moonday",
-          "todo": generaded,
-        },
-        {
-          "day": "Tusday",
-          "todo": generaded,
-        },
-        {
-          "day": "Wednsday",
-          "todo": generaded,
-        },
-        {
-          "day": "Thursday",
-          "todo": generaded,
-        },
-        {
-          "day": "Friday",
-          "todo": generaded,
-        },
-        {
-          "day": "SaterDay",
-          "todo": generaded,
-        }
-      ]
-    },
-  ];
   int weekIndicatorIndex = 0;
   void WeekChangerIndex(int index) {
     weekIndicatorIndex = index;

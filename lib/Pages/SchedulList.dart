@@ -91,9 +91,14 @@ class SchedulList extends StatelessWidget {
                                   textColor: Colors.red,
                                   // backgroundColor: Colors.red,
                                   leading: Text(index.toString()),
+
                                   onExpansionChanged: (value) {
                                     if (value == true) {
                                       WorkoutUpdater.WeekChangerIndex(index);
+                                      WorkoutUpdater.ResetingWSum();
+                                      if (WorkoutState.WSum != 0) {
+                                        WorkoutUpdater.WsumSetter();
+                                      }
                                     }
                                   },
                                   title: Center(

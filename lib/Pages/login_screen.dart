@@ -34,13 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacementNamed(context, '/Main');
 
         // print("the respons works bro");
+        print("it has loged correctly");
       } else {
         // Handle errors or other status codes.
 
         print(response.statusCode);
       }
     } catch (error) {
-      print(error);
+      print("This connection problem");
       // Handle any exceptions that occurred during the request.
     }
   }

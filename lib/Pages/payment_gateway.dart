@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:fitness/Widgets/backButton.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:chapasdk/chapasdk.dart';
 
 class PaymentGatewayScreen extends StatefulWidget {
   const PaymentGatewayScreen({super.key});
@@ -9,6 +13,40 @@ class PaymentGatewayScreen extends StatefulWidget {
 }
 
 class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
+//  function to call payment api
+  void makePaymentRequest() async {
+    final String CHAPA_URL = "http://localhost:3000/api/pay";
+
+    try {
+      final response = await http.post(Uri.parse(CHAPA_URL), body: {
+        "amount": "500",
+        "currency": "ETB",
+        "email": "haile@.com",
+        "first_name": "Ato",
+        "last_name": "haile",
+      });
+
+      if (response.statusCode == 200) {
+        // Extract the checkout_url from the response and redirect to it
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final String checkoutUrl = responseData['data']['checkout_url'];
+        if (checkoutUrl != null && checkoutUrl.isNotEmpty) {
+          Navigator.pushNamed(context, '/Schedule');
+          // Open the checkout URL in a webview or web browser
+          // Note: You'll need to use the webview_flutter package to open a webview.
+          // For launching in a browser, you can use the url_launcher package.
+        }
+      } else {
+        print(
+            "Failed to process the payment. status is ${response.statusCode}");
+        // Handle the error appropriately
+      }
+    } catch (e) {
+      print("Error occurred while processing the payment: $e");
+      // Handle the error appropriately
+    }
+  }
+
   List<String> containerContents = [
     'CBE Birr',
     'CBE Mobile Banking',
@@ -164,8 +202,25 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                               ),
                                             ),
                                             onPressed: () {
+                                              /* Chapa.paymentParameters(
+                                                context: context, // context
+                                                publicKey:
+                                                    'CHASECK_TEST-6mb6woXY7kDgJPlmQ6om4UO4aGqX3aWc',
+                                                currency: 'etb',
+                                                amount: '300',
+                                                email: 'xyz@gmail.com',
+                                                phone: '911223344',
+                                                firstName: 'testname',
+                                                lastName: 'lastName',
+                                                txRef: '55ttyyy',
+                                                title: 'title',
+                                                desc: 'desc',
+                                                namedRouteFallBack:
+                                                    '/Schedule', // fall back route name
+                                              ); */
                                               Navigator.pushNamed(
                                                   context, '/Schedule');
+                                              // makePaymentRequest();
                                             },
                                             child: const Text('Buy'),
                                           ),
