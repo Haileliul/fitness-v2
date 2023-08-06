@@ -45,7 +45,7 @@ class DetailSubList extends StatelessWidget {
                   child: Column(
                     children: [
                       youtubplayer(
-                          myVideoId: productState.containerData[productState
+                          myVideoId: productState.Mainlist[productState
                                   .selectedCategoryIndex]["SubExercises"]
                               [productState.SubselectedCategoryIndex]["V_url"]),
                       Container(
@@ -54,9 +54,9 @@ class DetailSubList extends StatelessWidget {
                           children: [
                             ListTile(
                               leading: Image.network(
-                                  "${productState.containerData[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Img"]}"),
+                                  "${productState.Mainlist[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Img"]}"),
                               title: Text(
-                                  "${productState.containerData[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Name"]}"),
+                                  "${productState.Mainlist[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Name"]}"),
                               subtitle: const Text("this is detaile"),
                             ),
                             Padding(
@@ -65,7 +65,7 @@ class DetailSubList extends StatelessWidget {
                                 vertical: 20,
                               ),
                               child: Text(
-                                  "${productState.containerData[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Details"]}"),
+                                  "${productState.Mainlist[productState.selectedCategoryIndex]["SubExercises"][productState.SubselectedCategoryIndex]["Details"]}"),
                             ),
                           ],
                         ),
@@ -80,26 +80,24 @@ class DetailSubList extends StatelessWidget {
           ),
         ),
         appBar: AppBar(),
-        panel: Expanded(
-          child: Container(
-            color: Colors.transparent,
-            width: size.width,
-            child: Column(
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.menu,
-                    )),
-                const Text("This is the Panel Part "),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Click me "),
-                ),
-              ],
-            ),
+        panel: Container(
+          color: Colors.transparent,
+          width: size.width,
+          child: Column(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.menu,
+                  )),
+              const Text("This is the Panel Part "),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Click me "),
+              ),
+            ],
           ),
         ),
         panelHeader: Container(

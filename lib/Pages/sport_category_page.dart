@@ -35,7 +35,7 @@ class _SportsCategoryState extends State<SportsCategory> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${productState.containerData[productState.selectedCategoryIndex]["exerciseCategoryName"]}',
+          '${productState.Mainlist[productState.selectedCategoryIndex]["exerciseCategoryName"]}',
           style: const TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.w300,
@@ -48,14 +48,13 @@ class _SportsCategoryState extends State<SportsCategory> {
         children: [
           CarouselSlider.builder(
             itemCount: productState
-                .containerData[productState.selectedCategoryIndex]
-                    ["SubExercises"]
+                .Mainlist[productState.selectedCategoryIndex]["SubExercises"]
                 .length,
             itemBuilder: (context, index, realIndex) {
               return SizedBox(
                 width: double.infinity,
                 child: Image.network(
-                  productState.containerData[productState.selectedCategoryIndex]
+                  productState.Mainlist[productState.selectedCategoryIndex]
                       ["SubExercises"][index]["Img"],
                   fit: BoxFit.cover,
                 ),
@@ -89,7 +88,7 @@ class _SportsCategoryState extends State<SportsCategory> {
                 onRefresh: Refresh,
                 child: GridView.builder(
                   itemCount: productState
-                      .containerData[productState.selectedCategoryIndex]
+                      .Mainlist[productState.selectedCategoryIndex]
                           ["SubExercises"]
                       .length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -121,7 +120,7 @@ class _SportsCategoryState extends State<SportsCategory> {
                               productStateModifier.changeIndexSub(index);
                             },
                             child: Image.network(
-                              productState.containerData[
+                              productState.Mainlist[
                                       productState.selectedCategoryIndex]
                                   ["SubExercises"][index]["Img"],
                               fit: BoxFit.cover,
@@ -151,7 +150,7 @@ class _SportsCategoryState extends State<SportsCategory> {
               activeDotColor: kSecondaryColor,
             ),
             activeIndex: activeIndex,
-            count: productState.containerData[val]["SubExercises"].length,
+            count: productState.Mainlist[val]["SubExercises"].length,
           ),
         ],
       );
