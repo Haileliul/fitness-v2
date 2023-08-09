@@ -5,9 +5,11 @@ import 'package:provider/provider.dart';
 
 class Chapa extends StatelessWidget {
   Chapa({super.key});
-  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    var pm = Provider.of<PayDataProvider>(context).chapa;
+    var selected = Provider.of<PayDataProvider>(context).selectedChapaIndex;
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -159,8 +161,8 @@ class Chapa extends StatelessWidget {
                       color: const Color(0xFF90EE02).withOpacity(0.9),
                       child: Center(
                         child: Text(
-                          Provider.of<PayDataProvider>(context)
-                              .chapa[selectedIndex]['name'],
+                          Provider.of<PayDataProvider>(context).chapa[selected]
+                              ['name'],
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -178,10 +180,6 @@ class Chapa extends StatelessWidget {
                 child: GridView.builder(
                   padding: const EdgeInsets.all(10),
                   itemBuilder: (context, index) {
-                    var pm = Provider.of<PayDataProvider>(context).chapa[index];
-                    var selected =
-                        Provider.of<PayDataProvider>(context, listen: false)
-                            .selectedChapaIndex;
                     return Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
@@ -193,7 +191,7 @@ class Chapa extends StatelessWidget {
                                 Provider.of<PayDataProvider>(context,
                                         listen: false)
                                     .changeChapaIndex(index);
-                                selectedIndex = selected;
+                                // selectedIndex = selected;
                               },
                               child: Container(
                                 // height: 50,width: 50,
@@ -219,7 +217,7 @@ class Chapa extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Image.asset(
-                                        pm['imagename'],
+                                        pm[index]['imagename'],
                                         width: 70,
                                         height: 50,
                                       ),
@@ -249,7 +247,7 @@ class Chapa extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
-                              pm['name'],
+                              pm[index]['name'],
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w900,

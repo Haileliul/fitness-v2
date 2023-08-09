@@ -11,17 +11,21 @@ class PaymentGatewayScreen extends StatefulWidget {
 }
 
 class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
-  int index = 0;
+ 
 
   @override
   Widget build(BuildContext context) {
+    var cat = Provider.of<PayDataProvider>(context).paymentM;
+    var selected = Provider.of<PayDataProvider>(context, listen: false)
+        .selectedPaymentIndex;
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/payment_getway/Rectangle 50.png'),
+              image:
+                  AssetImage('assets/images/payment_getway/Rectangle 50.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -48,7 +52,8 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                           // color: Colors.amber,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('assets/images/payment_getway/rectangle49.png'),
+                              image: AssetImage(
+                                  'assets/images/payment_getway/rectangle49.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -99,7 +104,6 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                     child: SizedBox(
                                       height: 70,
                                       child: ListView.builder(
-                                        
                                           itemCount:
                                               Provider.of<PayDataProvider>(
                                                       context)
@@ -107,22 +111,13 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                                   .length,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, i) {
-                                            var cat =
-                                                Provider.of<PayDataProvider>(
-                                                        context)
-                                                    .paymentM[i];
-                                            var selected =
-                                                Provider.of<PayDataProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .selectedPaymentIndex;
                                             return InkWell(
                                               onTap: () {
                                                 Provider.of<PayDataProvider>(
                                                         context,
                                                         listen: false)
                                                     .changePaymentIndex(i);
-                                                index = selected;
+                                                
                                               },
                                               child: Card(
                                                 elevation: 10,
@@ -136,7 +131,7 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Image.asset(
-                                                    cat['titleimage'],
+                                                    cat[i]['titleimage'],
                                                     width: size.width * 0.3,
                                                     height: size.height * 0.1,
                                                   ),
@@ -150,7 +145,8 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                     width: 10,
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 8),
                                     child: Text('Phone Number:(Optional)'),
                                   ),
                                   Padding(
@@ -189,19 +185,20 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      index == 1
+                                      selected == 0
                                           ? Navigator.pushNamed(
                                               context, '/telebirr')
                                           : Navigator.pushNamed(
                                               context, '/chapa');
                                     },
-                                    child:  Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
                                       child: SizedBox(
                                         height: size.height * 0.1,
-                                        child:  Card(
-                                          color:const Color(0xFF90EE02).withOpacity(0.9),
+                                        child: Card(
+                                          color: const Color(0xFF90EE02)
+                                              .withOpacity(0.9),
                                           child: const Center(
                                             child: Text(
                                               'Proceed Payment',
@@ -233,4 +230,3 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
     );
   }
 }
-

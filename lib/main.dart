@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness/Pages/chapa.dart';
+import 'package:fitness/Pages/forget_page.dart';
 import 'package:fitness/Pages/tele_birr.dart';
 import 'package:fitness/Pages/telebirr_acount.dart';
 import 'package:fitness/Provider/provider.dart';
@@ -72,6 +73,7 @@ class Home extends StatelessWidget {
         routes: {
           // '/': (context) => SplashScreen(),
           '/Login': (context) => const LoginScreen(),
+          '/forgot': (context) => const ForgotPage(),
           '/Signup': (context) => const SignUpScreen(),
           '/Main': (context) => const MainLandingPage(),
 
