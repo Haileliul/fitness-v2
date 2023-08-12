@@ -66,8 +66,14 @@ dependencies:
   chapasdk: ^0.0.6
   custom_refresh_indicator: ^2.2.1
   shimmer: ^3.0.0
+  tflite: ^1.1.2
+  url_launcher: ^6.1.12
+  validators: ^3.0.0
+  modal_progress_hud_nsn: ^0.3.0
+  fluttertoast: ^8.2.2
   # audioplayers: ^4.1.0
   # assets_audio_player: ^3.0.6
+  
 
 
 dev_dependencies:
@@ -95,6 +101,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/payment_getway/
     - assets/Sounds/
     - assets/key/Dkey.json
 

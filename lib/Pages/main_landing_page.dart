@@ -32,7 +32,7 @@ class _MainLandingPageState extends State<MainLandingPage> {
   }
 
   Future Refresh() async {
-    setState(() {});
+    await productUpdate.fetchData();
   }
 
   var productState;

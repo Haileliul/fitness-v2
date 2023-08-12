@@ -11,6 +11,7 @@ import 'Pages/Detail_of_Subcategory.dart';
 import 'Pages/FinalReportPage.dart';
 import 'Pages/SchedulList.dart';
 import 'Pages/WorkoutList.dart';
+import 'Pages/chapa.dart';
 import 'Pages/chatbot.dart';
 import 'Pages/main_landing_page.dart';
 import 'Pages/payment_gateway.dart';
@@ -22,8 +23,11 @@ import 'Pages/MusicList.dart';
 import '../translations/codegen_loader.g.dart';
 import './Widgets/notification.dart';
 
+import 'Pages/tele_birr.dart';
+import 'Pages/telebirr_acount.dart';
 import 'Provider/WorkOut Scheduler.dart';
 import 'Provider/exercises_categories.dart';
+import 'Provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +59,9 @@ class Home extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ExerciseCategories()),
         ChangeNotifierProvider(create: (context) => WorkOutProvider()),
+        ChangeNotifierProvider(
+          create: (context) => PayDataProvider(),
+        ),
       ],
       child: MaterialApp(
         // adding nessesary deligates for app localizasion
@@ -84,6 +91,10 @@ class Home extends StatelessWidget {
           '/Workout': (context) => WorkoutList(),
           '/Bmi': (context) => const InputPage(),
           '/Payment': (context) => const PaymentGatewayScreen(),
+
+          '/telebirr': (context) => TeleBirr(),
+          '/chapa': (context) => Chapa(),
+          '/account': (context) => TeleBirrAccount(),
         },
 
         home:
