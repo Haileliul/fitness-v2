@@ -155,7 +155,7 @@ class Chapa extends StatelessWidget {
                   height: size.height * 0.1,
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/Schedule');
+                      Navigator.pushReplacementNamed(context, '/Schedule');
                     },
                     child: Card(
                       color: const Color(0xFF90EE02).withOpacity(0.9),

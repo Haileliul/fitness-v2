@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/WorkOut Scheduler.dart';
 import '../Provider/exercises_categories.dart';
 
 class SchedulList extends StatelessWidget {
@@ -64,8 +63,10 @@ class SchedulList extends StatelessWidget {
                                   child: const Text(
                                     "WorkOut Scheduler",
                                     style: TextStyle(
-                                      fontSize: 30.0,
+                                      fontSize: 40.0,
                                       color: Colors.white,
+                                      fontFamily: 'vibes',
+                                      // fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -117,8 +118,9 @@ class SchedulList extends StatelessWidget {
                                         child: Text(
                                           "${WorkoutState.Scheduller[index]["title"]}",
                                           style: const TextStyle(
-                                            fontSize: 20.0,
+                                            fontSize: 30.0,
                                             color: Colors.white,
+                                            fontFamily: 'vibes',
                                           ),
                                         ),
                                       ),
@@ -146,7 +148,7 @@ class SchedulList extends StatelessWidget {
                                               style: const ButtonStyle(
                                                   backgroundColor:
                                                       MaterialStatePropertyAll(
-                                                Colors.grey,
+                                                Colors.white60,
                                               )),
                                               child: Padding(
                                                 padding:
@@ -155,8 +157,9 @@ class SchedulList extends StatelessWidget {
                                                 child: Text(
                                                   "${WorkoutState.Scheduller[0]["Excersise"][index]["day"]}",
                                                   style: const TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Prata',
                                                   ),
                                                 ),
                                               ),

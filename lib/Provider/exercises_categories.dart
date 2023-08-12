@@ -215,24 +215,24 @@ class ExerciseCategories extends ChangeNotifier {
       'exerciseCategoryName': LocaleKeys.Back.tr(),
     },
     {
-      "id": 2,
-      'exerciseCategoryName': LocaleKeys.Biceps.tr(),
-    },
-    {
       "id": 3,
       'exerciseCategoryName': LocaleKeys.Calf.tr(),
     },
     {
-      "id": 4,
-      'exerciseCategoryName': LocaleKeys.Chest.tr(),
+      "id": 6,
+      'exerciseCategoryName': LocaleKeys.Legs.tr(),
     },
     {
       "id": 5,
       'exerciseCategoryName': LocaleKeys.Forearm.tr(),
     },
     {
-      "id": 6,
-      'exerciseCategoryName': LocaleKeys.Legs.tr(),
+      "id": 2,
+      'exerciseCategoryName': LocaleKeys.Biceps.tr(),
+    },
+    {
+      "id": 4,
+      'exerciseCategoryName': LocaleKeys.Chest.tr(),
     },
     {
       "id": 7,
@@ -248,7 +248,7 @@ class ExerciseCategories extends ChangeNotifier {
     }
   ];
 
-  List containerData = [
+  /*  List containerData = [
     {
       'exerciseCategoryImage': 'assets/images/cat0n.png',
       'exerciseCategoryName': LocaleKeys.ABs.tr(),
@@ -549,7 +549,7 @@ class ExerciseCategories extends ChangeNotifier {
         },
       ]
     },
-  ];
+  ]; */
 
   int selectedCategoryIndex = 0;
   void changeIndex(int index) {

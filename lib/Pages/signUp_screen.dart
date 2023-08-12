@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 
 import './login_screen.dart';
 import '../translations/local_keys.g.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:validators/validators.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,6 +19,36 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   String mainUrl = "https://fitness-backend-production.up.railway.app/";
   String Api = "signup";
+  bool isEmailCorrect = false;
+  bool isNameCorrect = false;
+  bool ispasswordCorrect = false;
+  String errortextName = '';
+  String errortextEmail = '';
+  String errortextPassword = '';
+
+  bool _modal = false;
+  final TextStyle? styleText = const TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
+
+  bool check() {
+    if ((isEmailCorrect & ispasswordCorrect & isNameCorrect) == true) {
+      return false;
+    }
+    return true;
+  }
+
+  void MessageflutterToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 
   Future<void> signUpUser(String name, String email, String password, int age,
       String gender) async {
@@ -33,19 +66,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'gender': gender,
         }),
       );
-
       if (response.statusCode == 200) {
-        print("you have been Registered succssfully");
-
-        // print("the respons works bro");
+        MessageflutterToast('You have been Registered succssfully! ');
+        // Navigator.pushNamed(context, '/Main');
+        print(response.statusCode);
+      } else if (response.statusCode == 404) {
+        MessageflutterToast('user not found please check email and password');
+        print(response.statusCode);
       } else {
-        // Handle errors or other status codes.
-
+        MessageflutterToast('Service Unavailable please SignUp again!');
         print(response.statusCode);
       }
+      setState(() {
+        _modal = false;
+      });
     } catch (error) {
-      print(error);
-      // Handle any exceptions that occurred during the request.
+      MessageflutterToast('connection problem ');
+
+      setState(() {
+        _modal = false;
+      });
     }
   }
 
@@ -74,12 +114,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildNameTextField() {
     return TextField(
+      onChanged: (val) {
+        _nameController.text = val;
+        setState(() {
+          if (_nameController.text.length > 6) {
+            errortextName = '';
+            isNameCorrect = true;
+          } else {
+            errortextName = 'Please enter full name';
+          }
+        });
+      },
       focusNode: _nameFocusNode,
-      controller: _nameController,
+      // controller: _nameController,
       onSubmitted: (value) {
         FocusScope.of(context).requestFocus(_emailFocusNode);
       },
       decoration: InputDecoration(
+        errorText: _nameController.text.isEmpty ? null : errortextName,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.hint_name.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -98,12 +151,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildEmailTextField() {
     return TextField(
+      onChanged: (val) {
+        _emailController.text = val;
+        setState(() {
+          if (isEmail(val)) {
+            errortextEmail = '';
+            isEmailCorrect = true;
+          } else {
+            errortextEmail = 'invalid email';
+          }
+        });
+      },
       focusNode: _emailFocusNode,
-      controller: _emailController,
+      // controller: _emailController,
       onSubmitted: (value) {
         FocusScope.of(context).requestFocus(_passwordFocusNode);
       },
       decoration: InputDecoration(
+        errorText: _emailController.text.isEmpty ? null : errortextEmail,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.Email.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -122,10 +188,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildPasswordTextField() {
     return TextField(
+      onChanged: (val) {
+        _passwordController.text = val;
+        setState(() {
+          if (_passwordController.text.length >= 6) {
+            errortextPassword = '';
+            ispasswordCorrect = true;
+          } else {
+            errortextPassword = 'please enter 6 or more characters';
+          }
+        });
+      },
       focusNode: _passwordFocusNode,
-      controller: _passwordController,
+      // controller: _passwordController,
       obscureText: _isObscured,
       decoration: InputDecoration(
+        errorText: _passwordController.text.isEmpty ? null : errortextPassword,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.Password.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -290,120 +369,70 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/back.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 20,
+      body: ModalProgressHUD(
+        progressIndicator: const CircularProgressIndicator(color: Colors.grey),
+        inAsyncCall: _modal,
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/back.png'),
+                fit: BoxFit.cover,
               ),
-              Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.7,
-                margin: const EdgeInsets.symmetric(horizontal: 26),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(217, 217, 217, 0.3),
-                  borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _buildNameTextField(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _buildEmailTextField(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _buildPasswordTextField(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildAgeButton(),
-                          _buildSexButton(),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          height: 48,
-                          width: 124,
-                          margin: const EdgeInsets.only(left: 0, top: 0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(56),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFFF43800),
-                                Color.fromRGBO(244, 56, 0, 0),
-                                Color(0xFFF43800),
-                              ],
-                              stops: [0.0153, 0.9821, 0.9821],
-                            ),
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print(_passwordController.text);
-                              signUpUser(
-                                  _nameController.text,
-                                  _emailController.text,
-                                  _passwordController.text,
-                                  20,
-                                  "male");
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(56),
-                              ),
-                            ),
-                            child: Text(
-                              LocaleKeys.Sign_up.tr(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  margin: const EdgeInsets.symmetric(horizontal: 26),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(217, 217, 217, 0.3),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(child: _buildNameTextField()),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(child: _buildEmailTextField()),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(child: _buildPasswordTextField()),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _buildAgeButton(),
+                              _buildSexButton(),
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            LocaleKeys.have_an_account.tr(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            height: 26,
-                            width: 100,
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            height: 25,
+                            width: 124,
                             margin: const EdgeInsets.only(left: 0, top: 0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(56),
@@ -419,14 +448,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const LoginScreen(),
-                                  ),
-                                );
-                              },
+                              onPressed: check()
+                                  ? () {}
+                                  //() {
+                                  //         if (isEmailCorrect == false) {
+                                  //           wrongMessage('Incorrect Email');
+                                  //         } else {
+                                  //           wrongMessage(
+                                  //               'password must be at least 6 characters');
+                                  //         }
+                                  //       }
+                                  : () {
+                                      setState(() {
+                                        _modal = true;
+                                      });
+                                      print(_passwordController.text);
+                                      signUpUser(
+                                          _nameController.text,
+                                          _emailController.text,
+                                          _passwordController.text,
+                                          20,
+                                          "male");
+                                    },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 elevation: 0,
@@ -435,20 +478,78 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                               child: Text(
-                                LocaleKeys.SignIn.tr(),
+                                LocaleKeys.Sign_up.tr(),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              LocaleKeys.have_an_account.tr(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              height: 26,
+                              width: 100,
+                              margin: const EdgeInsets.only(left: 0, top: 0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(56),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFFF43800),
+                                    Color.fromRGBO(244, 56, 0, 0),
+                                    Color(0xFFF43800),
+                                  ],
+                                  stops: [0.0153, 0.9821, 0.9821],
+                                ),
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const LoginScreen(),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(56),
+                                  ),
+                                ),
+                                child: Text(
+                                  LocaleKeys.SignIn.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
