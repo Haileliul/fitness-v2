@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+  String mainUrl = "https://fitness-backend-production-a63d.up.railway.app/";
   String Api = "signIn";
   bool isEmailCorrect = false;
   bool ispasswordCorrect = false;
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         MessageflutterToast('Login successfully! ');
         print(response.statusCode);
-        Navigator.pushNamed(context, '/Main');
+        Navigator.pushReplacementNamed(context, '/Main');
       } else if (response.statusCode == 404) {
         MessageflutterToast('user not found please check email and password');
         print(response.statusCode);
@@ -249,27 +249,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 15,left: 20,right: 20),
+                      padding: const EdgeInsets.only(
+                          bottom: 15, left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           SizedBox(height: 25,
-                             child: Align(alignment: Alignment.topRight,
-                                   child: TextButton(
-                                     onPressed: () {
-                                       Navigator.pushNamed(context, '/forgot');
-                                     },
-                                     child:  const Text(
-                                       'Forgot Password?',
-                                       style: TextStyle(
-                                         color: Colors.red,
-                                         fontWeight: FontWeight.bold,
-                                         fontSize: 8,
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-                           ),
+                          SizedBox(
+                            height: 25,
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/forgot');
+                                },
+                                child: const Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           Text(
                             LocaleKeys.Login.tr(),
                             style: const TextStyle(

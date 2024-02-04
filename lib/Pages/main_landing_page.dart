@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../Provider/exercises_categories.dart';
-import '../Widgets/grid_view_builder.dart';
-import '../Widgets/BottomNavigationBar.dart';
+import 'bmi_input_page.dart';
+import 'chatbot.dart';
+import 'maincategoryPage.dart';
+import 'payment_gateway.dart';
 
 class MainLandingPage extends StatefulWidget {
   const MainLandingPage({Key? key}) : super(key: key);
@@ -14,6 +17,18 @@ class MainLandingPage extends StatefulWidget {
 }
 
 class _MainLandingPageState extends State<MainLandingPage> {
+  late int _currentIndex;
+  final List<Widget> _screens = [
+   const MainCategory(),
+    Chatbot(),
+    const InputPage(),
+    const PaymentGatewayScreen(),
+  ];
+  void initState() {
+    _currentIndex = 0;
+    super.initState();
+  }
+
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -28,75 +43,54 @@ class _MainLandingPageState extends State<MainLandingPage> {
   Widget build(BuildContext context) {
     productState = Provider.of<ExerciseCategories>(context);
     productUpdate = Provider.of<ExerciseCategories>(context, listen: false);
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(
-          FocusNode(),
-        );
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
+    return Scaffold(
+      body: _screens[_currentIndex],
+      bottomNavigationBar: GNav(
+        gap: 5,
+        // iconSize: 30,
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        color: Colors.white,
+        activeColor: Colors.amber,
+
+        tabs: [
+          GButton(
+            icon: FontAwesomeIcons.house,
+            text: "Home",
             onPressed: () {
-              productUpdate.fetchData();
+              setState(() {
+                _currentIndex = 0;
+              });
             },
-            icon: const Icon(Icons.menu),
           ),
-          title: const Text("Exercises"),
-          centerTitle: true,
-          actions: const [
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(
-                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60'),
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      child: TextField(
-                        focusNode: _focusNode,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                              left: 15.0, bottom: 8.0, top: 8.0),
-                          suffixIcon: Icon(
-                            FontAwesomeIcons.magnifyingGlass,
-                            color: Colors.grey.shade600,
-                          ),
-                          constraints: const BoxConstraints(
-                            maxHeight: 45.0,
-                          ),
-                          filled: true,
-                          fillColor: const Color(0xFFD9D9D9),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          hintText: 'Search... Sweat... Repeat!',
-                          hintStyle: TextStyle(color: Colors.grey.shade400),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: GridViewBuilder(),
-              ),
-            ],
+          GButton(
+            icon: FontAwesomeIcons.solidMessage,
+            text: "Match",
+            onPressed: () {
+              setState(() {
+                _currentIndex = 1;
+              });
+            },
           ),
-        ),
-        bottomNavigationBar: const BottomnavigationBar(),
+          GButton(
+            icon: FontAwesomeIcons.calculator,
+            text: "Leaders",
+            onPressed: () {
+              setState(() {
+                _currentIndex = 2;
+              });
+            },
+          ),
+          GButton(
+            icon: FontAwesomeIcons.dumbbell,
+            text: "Liberary",
+            onPressed: () {
+              setState(() {
+                _currentIndex = 3;
+              });
+            },
+          ),
+        ],
       ),
     );
   }

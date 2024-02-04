@@ -46,7 +46,7 @@ class _ChatbotState extends State<Chatbot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Chat bot",
         ),
       ),
@@ -54,10 +54,10 @@ class _ChatbotState extends State<Chatbot> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 15, bottom: 10),
+              padding: const EdgeInsets.only(top: 15, bottom: 10),
               child: Text(
                 "Today, ${DateFormat("Hm").format(DateTime.now())}",
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ),
             Flexible(
@@ -67,17 +67,17 @@ class _ChatbotState extends State<Chatbot> {
                     itemBuilder: (context, index) => chat(
                         messsages[index]["message"].toString(),
                         messsages[index]["data"]))),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Divider(
+            const Divider(
               height: 5.0,
               color: Colors.greenAccent,
             ),
             Container(
               child: ListTile(
                 leading: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.camera_alt,
                     color: Colors.greenAccent,
                     size: 35,
@@ -86,14 +86,14 @@ class _ChatbotState extends State<Chatbot> {
                 ),
                 title: Container(
                   height: 35,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     color: Color.fromRGBO(220, 220, 220, 1),
                   ),
-                  padding: EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 15),
                   child: TextFormField(
                     controller: messageInsert,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Enter a Message...",
                       hintStyle: TextStyle(color: Colors.black26),
                       border: InputBorder.none,
@@ -102,12 +102,12 @@ class _ChatbotState extends State<Chatbot> {
                       errorBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                     ),
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                    style: const TextStyle(fontSize: 16, color: Colors.black),
                     onChanged: (value) {},
                   ),
                 ),
                 trailing: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.send,
                       size: 30.0,
                       color: Colors.greenAccent,
@@ -130,7 +130,7 @@ class _ChatbotState extends State<Chatbot> {
                     }),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             )
           ],
@@ -143,42 +143,43 @@ class _ChatbotState extends State<Chatbot> {
 
   Widget chat(String message, int data) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment:
             data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           data == 0
-              ? Container(
+              ? const SizedBox(
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage("assets/robot.jpg"),
+                    backgroundImage:
+                        AssetImage("assets/images/SubExercises/Robot.png"),
                   ),
                 )
               : Container(),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Bubble(
-                radius: Radius.circular(15.0),
+                radius: const Radius.circular(15.0),
                 color: data == 0
-                    ? Color.fromRGBO(23, 157, 139, 1)
+                    ? const Color.fromRGBO(23, 157, 139, 1)
                     : Colors.orangeAccent,
                 elevation: 0.0,
                 child: Padding(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      SizedBox(
+                      const SizedBox(
                         width: 10.0,
                       ),
                       Flexible(
                           child: Container(
-                        constraints: BoxConstraints(maxWidth: 200),
+                        constraints: const BoxConstraints(maxWidth: 200),
                         child: Text(
                           message,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ))
@@ -187,11 +188,12 @@ class _ChatbotState extends State<Chatbot> {
                 )),
           ),
           data == 1
-              ? Container(
+              ? const SizedBox(
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage("assets/default.jpg"),
+                    backgroundImage:
+                        AssetImage("assets/images/SubExercises/persone.png"),
                   ),
                 )
               : Container(),

@@ -17,7 +17,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+  String mainUrl = "https://fitness-backend-production-a63d.up.railway.app/";
   String Api = "signup";
   bool isEmailCorrect = false;
   bool isNameCorrect = false;
@@ -25,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String errortextName = '';
   String errortextEmail = '';
   String errortextPassword = '';
-  
+
   bool _modal = false;
   final TextStyle? styleText = const TextStyle(
     color: Colors.black,
@@ -117,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onChanged: (val) {
         _nameController.text = val;
         setState(() {
-          if (_nameController.text.length >6) {
+          if (_nameController.text.length > 6) {
             errortextName = '';
             isNameCorrect = true;
           } else {
@@ -131,10 +131,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         FocusScope.of(context).requestFocus(_emailFocusNode);
       },
       decoration: InputDecoration(
-        errorText: _nameController.text.isEmpty
-                                    ? null
-                                    : errortextName,
-                                errorStyle: const TextStyle(color: Colors.red),
+        errorText: _nameController.text.isEmpty ? null : errortextName,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.hint_name.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -170,10 +168,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         FocusScope.of(context).requestFocus(_passwordFocusNode);
       },
       decoration: InputDecoration(
-        errorText: _emailController.text.isEmpty
-                                    ? null
-                                    : errortextEmail,
-                                errorStyle: const TextStyle(color: Colors.red),
+        errorText: _emailController.text.isEmpty ? null : errortextEmail,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.Email.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -207,10 +203,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // controller: _passwordController,
       obscureText: _isObscured,
       decoration: InputDecoration(
-        errorText: _passwordController.text.isEmpty
-                                    ? null
-                                    : errortextPassword,
-                                errorStyle: const TextStyle(color: Colors.red),
+        errorText: _passwordController.text.isEmpty ? null : errortextPassword,
+        errorStyle: const TextStyle(color: Colors.red),
         hintText: LocaleKeys.Password.tr(),
         filled: true,
         fillColor: const Color(0xFFFFF6F6),
@@ -454,9 +448,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             child: ElevatedButton(
-                              onPressed:
-                                  check()
-                                      ? (){}
+                              onPressed: check()
+                                  ? () {}
                                   //() {
                                   //         if (isEmailCorrect == false) {
                                   //           wrongMessage('Incorrect Email');
@@ -465,19 +458,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   //               'password must be at least 6 characters');
                                   //         }
                                   //       }
-                                      :
-                                  () {
-                                setState(() {
-                                  _modal = true;
-                                });
-                                print(_passwordController.text);
-                                signUpUser(
-                                    _nameController.text,
-                                    _emailController.text,
-                                    _passwordController.text,
-                                    20,
-                                    "male");
-                              },
+                                  : () {
+                                      setState(() {
+                                        _modal = true;
+                                      });
+                                      print(_passwordController.text);
+                                      signUpUser(
+                                          _nameController.text,
+                                          _emailController.text,
+                                          _passwordController.text,
+                                          20,
+                                          "male");
+                                    },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 elevation: 0,

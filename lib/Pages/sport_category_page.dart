@@ -8,7 +8,6 @@ import '../Provider/exercises_categories.dart';
 
 int activeIndex = 0;
 
-
 class SportsCategory extends StatefulWidget {
   const SportsCategory({Key? key}) : super(key: key);
 

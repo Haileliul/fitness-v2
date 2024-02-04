@@ -17,6 +17,7 @@ import 'Pages/SchedulList.dart';
 import 'Pages/WorkoutList.dart';
 import 'Pages/chatbot.dart';
 import 'Pages/main_landing_page.dart';
+import 'Pages/maincategoryPage.dart';
 import 'Pages/payment_gateway.dart';
 import 'Pages/splash_screen.dart';
 import 'Pages/sport_category_page.dart';
@@ -69,14 +70,14 @@ class Home extends StatelessWidget {
         // Theme of the page
         theme: ThemeData.dark(),
         title: 'Flutter Example',
-
+        initialRoute: "/",
         routes: {
-          // '/': (context) => SplashScreen(),
+          '/': (context) => const SplashScreen(),
           '/Login': (context) => const LoginScreen(),
           '/forgot': (context) => const ForgotPage(),
           '/Signup': (context) => const SignUpScreen(),
           '/Main': (context) => const MainLandingPage(),
-
+          '/maincategory': (context) => const MainCategory(),
           '/Final': (context) => const FinalReportPage(),
           '/Detail': (context) => DetailSubList(),
           '/SportCat': (context) => const SportsCategory(),
@@ -89,30 +90,8 @@ class Home extends StatelessWidget {
           '/Payment': (context) => const PaymentGatewayScreen(),
           '/telebirr': (context) => TeleBirr(),
           '/chapa': (context) => Chapa(),
-          '/account':(context) => TeleBirrAccount(),
-          
+          '/account': (context) => TeleBirrAccount(),
         },
-
-        home:
-            //  SportsCategory(),
-
-            // WorkoutList(),
-
-            // SchedulList(),
-            SplashScreen(),
-        // Chatbot(),
-        // const Music(),
-
-        // WeSlideTest(),
-        // PaymentGatewayScreen(),
-        // SignUpScreen(),
-        // LoginScreen(),
-        // FinalReportPage(),
-
-        // MainLandingPage(),
-        // SchedulList(),
-        // mongotest(),
-        // Lang(),
       ),
     );
   }

@@ -10,19 +10,9 @@ List<Map> generaded = [];
 class ExerciseCategories extends ChangeNotifier {
   ExerciseCategories();
   // an iterater to access each value of List
-  String mainUrl = "https://fitness-backend-production.up.railway.app/";
+  String mainUrl = "https://fitness-backend-production-a63d.up.railway.app/";
 
 // my api feaching
-  List Mainlist = [];
-
-  void fetchData() async {
-    const url = "https://fitness-backend-production.up.railway.app/showfitts";
-    final uri = Uri.parse(url);
-    final response = await http.get(uri);
-    final data = jsonDecode(response.body);
-    Mainlist = data;
-    print(Mainlist[0][""]);
-  }
 
   List Language = [
     {

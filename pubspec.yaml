@@ -67,6 +67,7 @@ dependencies:
   # audioplayers: ^4.1.0
   # assets_audio_player: ^3.0.6
   fluttertoast: ^8.2.2
+  custom_refresh_indicator: ^3.0.0
 
 
 dev_dependencies:
@@ -96,7 +97,10 @@ flutter:
     - assets/images/
     - assets/Sounds/
     - assets/key/Dkey.json
+    - assets/images/SubExercises/
     - assets/images/payment_getway/
+
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
