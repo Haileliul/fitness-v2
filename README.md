@@ -1,6 +1,6 @@
 # Fitness V2
 
-![Fitness V2 Logo](assets/images/logo.png)
+![Fitness V2 Logo](assets/images/logo.jpg)
 
 Fitness V2 is a comprehensive fitness application built using Flutter. It aims to provide users with a seamless experience for tracking workouts, monitoring progress, and accessing fitness-related content.
 
@@ -17,14 +17,16 @@ Fitness V2 is a comprehensive fitness application built using Flutter. It aims t
 ## Screenshots
 
 ### Home Screen
-![Home Screen](assets/images/screenshots/home_screen.png)
+![Home Screen](assets/images/Home.jpg)
 
 ### Workout Tracking
-![Workout Tracking](assets/images/screenshots/workout_tracking.png)
+![Workout Tracking](assets/images/detail_page.jpg)
 
-### Progress Monitoring
-![Progress Monitoring](assets/images/screenshots/progress_monitoring.png)
+### Live chat Bot
+![Live chat Bot](assets/images/chat_bot.jpg)
 
+### BMI calculator
+![BMI calculator](assets/images/bmi-calculater.jpg)
 ## Installation
 
 ### Prerequisites
@@ -97,3 +99,4 @@ For any questions or feedback, please open an issue on GitHub.
 ---
 
 Thank you for using Fitness V2! Stay fit and healthy!
+
