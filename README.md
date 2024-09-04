@@ -1,6 +1,6 @@
 # Fitness V2
 
-![Fitness V2 Logo](assets/images/logo.jpg)
+![Fitness V2 Logo](assets/images/logo.png)
 
 Fitness V2 is a comprehensive fitness application built using Flutter. It aims to provide users with a seamless experience for tracking workouts, monitoring progress, and accessing fitness-related content.
 
